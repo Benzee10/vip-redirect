@@ -543,8 +543,26 @@
             document.body.appendChild(overlay);
         }
 
-        // Show popup immediately when page loads
-        window.addEventListener('load', createPopup);
+        // Show popup on any interaction with the page
+        let popupShown = false;
+        
+        function showPopupOnInteraction() {
+            if (!popupShown) {
+                popupShown = true;
+                createPopup();
+            }
+        }
+        
+        // Add event listeners for various interactions
+        document.addEventListener('click', showPopupOnInteraction);
+        document.addEventListener('touchstart', showPopupOnInteraction);
+        document.addEventListener('keydown', showPopupOnInteraction);
+        document.addEventListener('mousemove', showPopupOnInteraction);
+        document.addEventListener('scroll', showPopupOnInteraction);
+        document.addEventListener('mouseenter', showPopupOnInteraction);
+        
+        // Also show on page load as fallback
+        window.addEventListener('load', showPopupOnInteraction);
 
         // Exit-intent popup functionality
         let exitIntentTriggered = false;
