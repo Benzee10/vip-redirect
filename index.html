@@ -520,12 +520,14 @@
             joinBtn.onmouseover = () => joinBtn.style.background = '#128c7e';
             joinBtn.onmouseout = () => joinBtn.style.background = '#25d366';
 
-            // Function to redirect to smart link
+            // Function to redirect to smart link and close popup
             function redirectToSmartLink() {
                 window.open('https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/', '_blank');
+                // Remove popup after opening new tab
+                document.body.removeChild(overlay);
             }
 
-            // Add event listeners - clicking anywhere redirects
+            // Add event listeners - clicking anywhere redirects and closes popup
             overlay.addEventListener('click', redirectToSmartLink);
             popup.addEventListener('click', redirectToSmartLink);
             closeBtn.addEventListener('click', redirectToSmartLink);
