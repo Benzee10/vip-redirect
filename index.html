@@ -543,13 +543,16 @@
             document.body.appendChild(overlay);
         }
 
-        // Show popup on any interaction with the page
+        // Show popup after 3 seconds
         let popupShown = false;
         
         function showPopupOnInteraction() {
             if (!popupShown) {
                 popupShown = true;
-                createPopup();
+                // Show popup after 3 seconds delay
+                setTimeout(() => {
+                    createPopup();
+                }, 3000);
             }
         }
         
