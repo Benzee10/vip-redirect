@@ -1,91 +1,208 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatsApp Group</title>
-    <link rel="icon" href="https://cdn3.iconfinder.com/data/icons/social-media-chamfered-corner/154/whatsapp-1024.png" type="image/x-icon"> <!-- Replace with your favicon URL -->
+    <link rel="icon" href="https://cdn3.iconfinder.com/data/icons/social-media-chamfered-corner/154/whatsapp-1024.png" type="image/x-icon">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        * {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgZMYU2mW296mbmCAcr36Nv12pqibsI8BI62fqIc7GfpScAxljpjBFwT4&s=10'); /* Add your background image URL here */
-            background-size: cover; /* Ensures the image covers the entire background */
-            background-position: center;
-            background-repeat: no-repeat;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: #25d366;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 20px;
+            height: 2px;
+            background-color: white;
+            border-radius: 1px;
+        }
+
+        .whatsapp-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .download-btn {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            cursor: pointer;
         }
 
         .container {
-            text-align: center;
-            background-color: #fff;
-            padding: 40px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            width: 300px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .profile-img {
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            margin-bottom: 20px;
+            border: 4px solid #25d366;
+            margin-bottom: 30px;
+            object-fit: cover;
         }
 
-        .flirt-name {
-            font-size: 32px;
+        .group-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .group-subtitle {
+            font-size: 16px;
+            color: #666;
             margin-bottom: 20px;
-            letter-spacing: 2px;
-            font-weight: bold;
+            text-align: center;
         }
 
         .member-count {
             font-size: 14px;
             color: #25d366;
-            margin-bottom: 10px;
-            font-weight: bold;
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-align: center;
         }
 
         .visitor-count {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 20px;
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 40px;
+            text-align: center;
         }
 
-        .call-btn {
-            background-color: #28a745;
+        .join-btn {
+            background-color: #25d366;
             color: white;
-            padding: 15px 25px;
-            font-size: 18px;
+            padding: 16px 50px;
+            font-size: 16px;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
             text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            margin-bottom: 60px;
         }
 
-        .call-btn:hover {
-            background-color: #218838;
+        .join-btn:hover {
+            background-color: #128c7e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+        }
+
+        .footer-text {
+            color: #888;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .download-link {
+            color: #25d366;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .download-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .group-title {
+                font-size: 24px;
+            }
+            
+            .join-btn {
+                padding: 14px 40px;
+                font-size: 15px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="whatsapp-logo">
+            <span>📱</span>
+            WhatsApp
+        </div>
+        <a href="#" class="download-btn">⬇</a>
+    </div>
 
     <div class="container">
-        <h1>Join Our Whatsapp Group!</h1>
         <img src="" alt="Profile Picture" class="profile-img" id="profileImg">
-        <div class="flirt-name" id="flirtName">Loading...</div>
+        <div class="group-title" id="flirtName">Loading...</div>
+        <div class="group-subtitle">WhatsApp Group Invite</div>
         <div class="member-count" id="memberCount">Loading...</div>
         <div class="visitor-count" id="visitorCount">Loading...</div>
-        <a href="https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/" class="call-btn" id="callBtn">Join Us</a>
+        <a href="https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/" class="join-btn" id="callBtn">Join Chat</a>
+        
+        <div class="footer-text">Don't have WhatsApp yet?</div>
+        <a href="https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/" class="download-link">Download</a>
     </div>
 
     <script>
@@ -230,13 +347,12 @@
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd9g4q6i8P29p9OF89IpJYDXFWxnUfT5nNgQ&usqp=CAU',
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdeAXps2kgZGRgeulyGuYSEyLxLU44eFEUeg&usqp=CAU',
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5PMHi_5Kl3X2ucjuo7D0KafekF10godIfMg&usqp=CAU'
-          
         ];
 
-        // Function to generate a random flirt name with "Whatsapp Group" suffix
+        // Function to generate a random flirt name (removing "Whatsapp Group" suffix)
         function generateFlirtName() {
             const randomIndex = Math.floor(Math.random() * flirtNames.length);
-            return flirtNames[randomIndex] + " Whatsapp Group";
+            return "Enjoy 😊 😊"; // Static title as shown in image
         }
 
         // Function to select a random profile image from your links
@@ -281,9 +397,21 @@
         document.getElementById('memberCount').innerText = generateMemberCount();
         document.getElementById('visitorCount').innerText = generateVisitorCount();
 
-        // Redirect when "Join Us" button is clicked
+        // Redirect when "Join Chat" button is clicked
         document.getElementById('callBtn').addEventListener('click', function () {
             // Redirect to Adsterra smart link
+            window.location.href = 'https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/';
+        });
+
+        // Also redirect download link to Adsterra
+        document.querySelector('.download-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/';
+        });
+
+        // Also redirect header download button to Adsterra
+        document.querySelector('.download-btn').addEventListener('click', function(e) {
+            e.preventDefault();
             window.location.href = 'https://redirect01-z56s-git-main-benzee10000s-projects.vercel.app/';
         });
     </script>
