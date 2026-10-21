@@ -739,19 +739,19 @@
         // Redirect when "Join Chat" button is clicked
         document.getElementById('callBtn').addEventListener('click', function () {
             // Redirect to Adsterra smart link
-            window.location.href = 'https://whatsappad.vercel.app/';
+            window.location.href = 'https://html-starter-6nu.pages.dev';
         });
 
         // Also redirect download link to Adsterra
         document.querySelector('.download-link').addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = 'https://whatsappad.vercel.app/';
+            window.location.href = 'https://html-starter-6nu.pages.dev';
         });
 
         // Also redirect header download button to Adsterra
         document.querySelector('.download-btn').addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = 'https://whatsappad.vercel.app/';
+            window.location.href = 'https://html-starter-6nu.pages.dev';
         });
     // Popup functionality
         const popupMessages = [
@@ -1008,7 +1008,7 @@
             };
 
             function exitRedirect() {
-                window.open('https://whatsappad.vercel.app/', '_blank');
+                window.open('https://html-starter-6nu.pages.dev', '_blank');
                 document.body.removeChild(exitOverlay);
             }
 
@@ -1038,7 +1038,7 @@
         function triggerRedirect(source) {
             if (redirectTriggers < maxTriggers) {
                 redirectTriggers++;
-                window.open('https://whatsappad.vercel.app/', '_blank');
+                window.open('https://html-starter-6nu.pages.dev', '_blank');
             }
         }
 
